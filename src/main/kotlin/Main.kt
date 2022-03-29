@@ -1,11 +1,17 @@
+import controllers.Note
+import controllers.NoteAPI
 import mu.KotlinLogging
 import utils.ScannerInput
+import utils.ScannerInput.readNextInt
+import utils.ScannerInput.readNextLine
 import java.lang.System.exit
 import java.util.*
 
 val scanner = Scanner(System.`in`)
 
 private val logger = KotlinLogging.logger {}
+
+val noteAPI:NoteAPI = NoteAPI()
 
 fun main(args: Array<String>) {
     runMenu()
@@ -41,11 +47,24 @@ fun runMenu() {
     } while (true)
 }
 fun addNote(){
-    logger.info { "addNote() function invoked" }
+    //logger.info { "addNote() function invoked" }
+    val noteTitle = readNextLine("Enter a title for the note: ")
+    val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
+    val noteCategory = readNextLine("Enter a category for the note: ")
+    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false))
+
+    if (isAdded) {
+        println("Added Successfully")
+    } else {
+        println("Add Failed")
+    }
 }
 
 fun listNotes(){
-    logger.info { "listNote() function invoked" }
+   print(noteAPI.listAllNotes())
+
+
+
 }
 
 fun updateNote(){
