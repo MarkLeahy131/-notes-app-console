@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
 import java.util.*
@@ -18,6 +19,7 @@ class NoteAPITest {
     private var swim: Note? = null
     private var populatedNotes: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
     private var emptyNotes: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
+    private val noteAPI = NoteAPI(JSONSerializer(File("notes.json")))
 
     @BeforeEach
     fun setup() {
